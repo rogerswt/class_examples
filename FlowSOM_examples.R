@@ -83,6 +83,32 @@ PlotStars(fSOM,
 # if there's time...
 
 
+########################## Custom Extensions ###################################
+source("~/git/R/class_examples/FlowSOM_utils.R")
+
+# re-read ff
+ff <- suppressWarnings(flowCore::read.FCS(fileName))
+fl_params = 8:18
+# there's one that's NA
+fl_names = parameters(ff)$desc[fl_params]
+fl_names[4] = "nada"
+colnames(ff)[fl_params] = fl_names
+colnames(keyword(ff)$SPILL) = fl_names
+
+useful_params = c(9,12,14:18)
+fSOM <- ReadInput(ff,compensate = TRUE,transform = TRUE, scale = TRUE)
+fSOM <- BuildSOM(fSOM,colsToUse = useful_params)
+fSOM <- BuildMST(fSOM,tSNE = TRUE)
+
+par(mfrow = c(1, 1), mar = c(5, 4, 4, 1))
+plot_marker_tree(fsom = fSOM,, marker = "CD4")
+
+# now, because we're in control, we can make a useful spread
+par(mfrow = c(3, 3), mar = c(1, 1, 4, 1))
+params = colnames(ff)[useful_params]
+for (p in params) {
+  plot_marker_tree(fsom = fSOM, node.scale = 0.1, marker = p)
+}
 
 
 
