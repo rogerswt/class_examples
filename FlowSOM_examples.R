@@ -107,7 +107,7 @@ plot_marker_tree(fsom = fSOM,, marker = "CD4")
 par(mfrow = c(3, 3), mar = c(1, 1, 4, 1))
 params = colnames(ff)[useful_params]
 for (p in params) {
-  plot_marker_tree(fsom = fSOM, node.scale = 0.1, marker = p)
+  plot_marker_tree(fsom = fSOM, node.scale = 0.2, marker = p)
 }
 
 
