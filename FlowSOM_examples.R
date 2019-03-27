@@ -6,7 +6,7 @@
 
 # vignette
 
-############################### chunk 1 ########################################
+############################### All at once ####################################
 library(FlowSOM)
 fileName <- system.file("extdata","lymphocytes.fcs", package="FlowSOM")
 ff = read.FCS(fileName)
@@ -24,7 +24,7 @@ PlotStars(fSOM$FlowSOM,
           backgroundValues = as.factor(fSOM$metaclustering))
 
 
-############################### chunk 1 ########################################
+############################### Step at a time #################################
 library(flowCore)
 library(FlowSOM)
 fileName <- system.file("extdata","lymphocytes.fcs",
@@ -33,8 +33,6 @@ fSOM <- ReadInput(fileName,compensate = TRUE,transform = TRUE,
                      toTransform=c(8:18),scale = TRUE)
 ff <- suppressWarnings(flowCore::read.FCS(fileName))
 
-############################### chunk 2 ########################################
-# Do it one step at a time instead of altogether
 # read and preprocess the data ...
 # "When reading the data, several preprocessing options are available"
 fSOM <- ReadInput(ff,compensate = TRUE,transform = TRUE, scale = TRUE)
@@ -79,4 +77,12 @@ cellTypes[query_res$selected] <- "CD19 B cells"
 PlotStars(fSOM,
           backgroundValues = cellTypes,
           backgroundColor = c("#FFFFFF00","#0000FF22"))
+
+
+############################# Metaclustering ###################################
+# if there's time...
+
+
+
+
 
